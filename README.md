@@ -50,7 +50,9 @@ Solved problem: earmark content elements to be placed in the header and footer a
         You have unsaved changes
     </h2>
     <p>
-        You are leaving the current view. Please decide if you want to save your changes now, discard them, or cancel the operation and stay on the current view.
+        You are leaving the current view.
+        Please decide if you want to save your changes now, discard them,
+        or cancel the operation and stay on the current view.
     </p>
     <Button {...Modal.isFooter()}>
         Save changes and leave view.
@@ -66,9 +68,9 @@ Solved problem: earmark content elements to be placed in the header and footer a
 
 # implementation
 
-- 1. Import the `AttachedProperty` class at the top of your component.
-- 2. Declare and create a new attached property constant for each property you want to support.
-- 3. Add property setters to your component for each property you want to support.
+- (1.) Import the `AttachedProperty` class at the top of your component.
+- (2.) Declare and create a new attached property constant for each property you want to support.
+- (3.) Add property setters to your component for each property you want to support.
 ```
 // 1.
 import { AttachedProperty } from 'react-attached-properties';
@@ -89,10 +91,10 @@ attachedColumn.createSetter(MyGrid);
 export { MyGrid };
 ```
 
-- 4. When your component is rendered: iterate over `children` (either shallow i.e. you inspect only the immediate `children`, or deep i.e. you inspect recursively `children` of `children`, depending on your use case, see examples for both variants).
-- 5. For each inspected child: retrieve each attached property value you want to support.
-- 6. Process each child according to the retrieved values; remember that strings can be among the children; they don't have properties and cannot be cloned. We can check for strings with `React.isValidElement`. If you have retrieved an attached property value you do not need to check for string because only valid react elements (i.e. not a string) can have properties.
-- 7. Clear any attached property value
+- (4.) When your component is rendered: iterate over `children` (either shallow i.e. you inspect only the immediate `children`, or deep i.e. you inspect recursively `children` of `children`, depending on your use case, see examples for both variants).
+- (5.) For each inspected child: retrieve each attached property value you want to support.
+- (6.) Process each child according to the retrieved values; remember that strings can be among the children; they don't have properties and cannot be cloned. We can check for strings with `React.isValidElement`. If you have retrieved an attached property value you do not need to check for string because only valid react elements (i.e. not a string) can have properties.
+- (7.) Clear any attached property value
 ```
 <div className="my-grid">
 {
@@ -111,7 +113,7 @@ export { MyGrid };
                 // 6.
                 React.isValidElement(child) ?
                     // 7.
-                    React.cloneElement(child, { ...attachedRow.clear(), ...attachedColumn.clear() }) : child
+                    React.cloneElement(child, {...attachedRow.clear(), ...attachedColumn.clear()}) : child
             }
             </div>
         );
