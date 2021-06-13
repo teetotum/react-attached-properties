@@ -1,0 +1,33 @@
+{
+  "name": "react-attached-properties",
+  "version": "0.0.1",
+  "description": "A React pattern that can be applied to elements that are in a Container-/-Content relationship to attach information to nested elements that is needed and understood by the container.",
+  "keywords": [
+    "react",
+    "pattern"
+  ],
+  "homepage": "https://github.com/teetotum/react-attached-properties",
+  "bugs": "https://github.com/teetotum/react-attached-properties/issues",
+  "license": "MIT",
+  "main": "dist/react-attached-properties.js",
+  "author": "Martin Winkler",
+  "repository": "github:teetotum/react-attached-properties",
+  "scripts": {
+    "dev": "webpack",
+    "build": "webpack"
+  },
+  "dependencies": {
+    "uuid": "*"
+  },
+  "devDependencies": {
+    "@babel/core": "7.10.2",
+    "@babel/preset-env": "7.10.2",
+    "webpack": "4.43.0",
+    "webpack-cli": "3.3.11",
+    "core-js": "3.6.5",
+    "babel-loader": "8.1.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8"
+  }
+}

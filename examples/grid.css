@@ -1,0 +1,10 @@
+.grid {
+    display: grid;
+    grid-template-columns: var(--columns);
+    grid-template-rows: var(--rows);
+}
+  
+.cell {
+    grid-column: var(--column);
+    grid-row: var(--row);
+}

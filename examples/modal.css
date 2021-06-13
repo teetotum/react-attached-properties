@@ -1,0 +1,23 @@
+.modal {
+    display: block;
+    height: 80vh;
+    width: 60vh;
+    background-color: white;
+}
+
+.header {
+    display: flex;
+    background-color: steelblue;
+    padding: 8px;
+}
+
+.body {
+    display: block;
+    padding: 8px;
+}
+
+.footer {
+    display: flex;
+    background-color: steelblue;
+    padding: 8px;
+}

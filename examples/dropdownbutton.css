@@ -1,0 +1,38 @@
+.dropdown-button {
+    position: relative;
+}
+
+.toggle-button {
+    display: flex;
+    width: 32px;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.toggle-button::before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+    border-top-color: black;
+    border-bottom-width: 0;
+}
+
+.toggle-button:hover {
+    border: 1px solid black;
+}
+
+.dropdown {
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid black;
+    padding: 8px;
+}
