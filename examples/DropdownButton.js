@@ -18,7 +18,7 @@ const DropdownButton = ({ children }) => {
             <div className="toggle-button" onClick={toggleDropdown}/>
             { isOpen && (
                 <div className="dropdown">
-                    {confinedBy(DropDownButton).recursiveMap(children,
+                    {confinedBy(DropdownButton).recursiveMap(children,
                         (child) => {
                             if (hasCloseOnClick.from(child))
                                 return (
