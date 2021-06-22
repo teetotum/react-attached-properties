@@ -20,9 +20,9 @@ Solved problem: provide row and column placement of elements in a Grid component
 </Grid>
 ```
 
-Solved problem: selectively add dropdown closing behavior to content elements in a generic DropDown component
+Solved problem: selectively add dropdown closing behavior to content elements in a generic Dropdown component
 ```
-<DropDownButton>
+<DropdownButton>
     <p>
         It was a dark and stormy night...
     </p>
@@ -30,17 +30,17 @@ Solved problem: selectively add dropdown closing behavior to content elements in
         <Button>
             Open some flyout
         </Button>
-        <Button {...DropDownButton.closeOnClick()}>
+        <Button {...DropdownButton.closeOnClick()}>
             Option #Foo
         </Button>
-        <Button {...DropDownButton.closeOnClick()}>
+        <Button {...DropdownButton.closeOnClick()}>
             Option #Bar
         </Button>
         <Button>
             Show more...
         </Button>
     </FancyBorder>
-</DropDownButton>
+</DropdownButton>
 ```
 
 Solved problem: earmark content elements to be placed in the header and footer areas of a Modal component, instead of in the body
