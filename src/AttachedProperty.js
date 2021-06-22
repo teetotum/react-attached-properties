@@ -1,7 +1,7 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-const UNSET_VALUE = {};
+const UNSET_VALUE = { toString: () => 'UNSET_VALUE' };
 
 class AttachedProperty {
 
@@ -10,7 +10,7 @@ class AttachedProperty {
 
         this.name = name;
         this.id = uuidv4();
-        this.propID = `${this.id}_${this.name.toLowerCase()}`;
+        this.propID = `attachedproperty_${this.id}_${this.name.toLowerCase()}`;
     }
 
     toString() {
