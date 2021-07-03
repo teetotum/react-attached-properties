@@ -10,6 +10,7 @@
   "bugs": "https://github.com/teetotum/react-attached-properties/issues",
   "license": "MIT",
   "main": "dist/react-attached-properties.js",
+  "types": "types.d.ts",
   "author": "Martin Winkler",
   "repository": "github:teetotum/react-attached-properties",
   "scripts": {
