@@ -10,28 +10,28 @@ class AttachedProperty {
 
         this.name = name;
         this.id = uuidv4();
-        this.propID = `attachedproperty_${this.id}_${this.name.toLowerCase()}`;
+        this.propertyID = `attachedproperty_${this.id}_${this.name.toLowerCase()}`;
     }
 
     toString() {
-        return this.propID;
+        return this.propertyID;
     }
 
     createSetter(component, createAttachedValue = _ => _) {
-        component[this.name] = (...values) => ({ [this.propID]: createAttachedValue(...values) });
+        component[this.name] = (...values) => ({ [this.propertyID]: createAttachedValue(...values) });
     }
 
     from(element) {
         if (!React.isValidElement(element)) return undefined;
 
-        const propValue = element.props[this.propID];
+        const propValue = element.props[this.propertyID];
         if (propValue === UNSET_VALUE) return undefined;
 
         return propValue;
     }
 
     clear() {
-        return { [this.propID]: UNSET_VALUE };
+        return { [this.propertyID]: UNSET_VALUE };
     }
 
 }
