@@ -16,3 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - resolved error 'invalid attribute name' that was caused by leading digits in the generated property names
+
+## 0.0.3 - 2021-07-11
+### Added
+- types for TypeScript, included in the npm package to enable frictionless usage of the library in TS projects
+### Changed
+- renamed AttachedProperty.propID to AttachedProperty.propertyID
+- source files and examples are no longer included in the npm package
