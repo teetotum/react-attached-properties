@@ -1,5 +1,12 @@
 # react-attached-properties: A React Pattern
 
+```jsx
+<DockPanel>
+    <div {...DockPanel.top()} />
+    <div {...DockPanel.left()} />
+</DockPanel>
+```
+
 AttachedProperties is a pattern that can be applied to elements that are in a Container-/-Content relationship to attach information to nested elements that is needed and understood by the container; the pattern's core idea is that it directly associates the information with the nested element, in a readable and self-documenting way, and without the need to write excessive markup.
 
 The pattern can help to reduce the need for wrapper components that would otherwise be necessairy to convey the information in a more conventional approach.
@@ -11,17 +18,17 @@ The `react-attached-properties` library provides utility functions for creating 
 
 # how it looks
 
-Solved problem: provide row and column placement of elements in a Grid component
-```
-<Grid rows={3} columns={3}>
-    <Red {...Grid.row(3)} {...Grid.column(2)} />
-    <Blue {...Grid.row(1)} {...Grid.column(1)} />
-    <Green {...Grid.row(2)} {...Grid.column(3)} />
-</Grid>
-```
+- Solved problem: provide row and column placement of elements in a Grid component
+    ```jsx
+    <Grid rows={3} columns={3}>
+        <Red {...Grid.row(3)} {...Grid.column(2)} />
+        <Blue {...Grid.row(1)} {...Grid.column(1)} />
+        <Green {...Grid.row(2)} {...Grid.column(3)} />
+    </Grid>
+    ```
 
 Solved problem: selectively add dropdown closing behavior to content elements in a generic Dropdown component
-```
+```jsx
 <DropdownButton>
     <p>
         It was a dark and stormy night...
@@ -44,7 +51,7 @@ Solved problem: selectively add dropdown closing behavior to content elements in
 ```
 
 Solved problem: earmark content elements to be placed in the header and footer areas of a Modal component, instead of in the body
-```
+```jsx
 <Modal>
     <h2 {...Modal.isHeader()}>
         You have unsaved changes
@@ -71,7 +78,7 @@ Solved problem: earmark content elements to be placed in the header and footer a
 - (1.) Import the `AttachedProperty` class at the top of your component.
 - (2.) Declare and create a new attached property constant for each property you want to support.
 - (3.) Add property setters to your component for each property you want to support.
-```
+```jsx
 // 1.
 import { AttachedProperty } from 'react-attached-properties';
 import React from 'react';
@@ -95,7 +102,7 @@ export { MyGrid };
 - (5.) For each inspected child: retrieve each attached property value you want to support.
 - (6.) Process each child according to the retrieved values; remember that strings can be among the children; they don't have properties and cannot be cloned. We can check for strings with `React.isValidElement`. If you have retrieved an attached property value you do not need to check for string because only valid react elements (i.e. not a string) can have properties.
 - (7.) Clear any attached property value
-```
+```jsx
 <div className="my-grid">
 {
     // 4.
@@ -127,7 +134,7 @@ export { MyGrid };
 The spread operator syntax is well supported by jsx although it might be unfamiliar if you haven't seen it used before.
 The rest of the pattern is just a plain old dot notation function call to a function that happens to be exposed on the component itself. The object that is returned has a property with a guaranteed unique property name.
 With attached properties that don't require an input value you could therefore separate the function call from the property spread like this:
-```
+```jsx
 const isHeader = Modal.isHeader();
 const isFooter = Modal.isFooter();
 
@@ -141,6 +148,6 @@ const isFooter = Modal.isFooter();
 ## how to conditionally set an attached property
 
 To conditionally set a property you can use the following syntax:
-```
+```jsx
 <Button {...placeButtonsInFooter ? Modal.isFooter() : null} />
 ```
