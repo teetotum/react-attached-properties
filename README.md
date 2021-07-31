@@ -16,7 +16,7 @@ View the examples below to see how it looks in jsx code.
 
 The `react-attached-properties` library provides utility functions for creating and retrieving attached properties, provides a mechanism to avoid property name clashes, and a mechanism to clear attached properties (which is needed lest some child component propagates those properties unwittingly to its own children); but this library is by no means a prerequisite for using the pattern: You can apply AttachedProperties in any vanilla React project with just a few lines of code without needing to add `react-attached-properties` to your dependencies. Using this library however allows you to reduce boiler-plate code, offers a uniform way to define and retrieve attached properties, and spares you the hassle to deal with obvious (and not-so-obvious) pitfalls.
 
-# how it looks
+# What does it solve
 
 - Solved problem: provide row and column placement of elements in a Grid component
     ```jsx
@@ -27,51 +27,51 @@ The `react-attached-properties` library provides utility functions for creating 
     </Grid>
     ```
 
-Solved problem: selectively add dropdown closing behavior to content elements in a generic Dropdown component
-```jsx
-<DropdownButton>
-    <p>
-        It was a dark and stormy night...
-    </p>
-    <FancyBorder>
-        <Button>
-            Open some flyout
-        </Button>
-        <Button {...DropdownButton.closeOnClick()}>
-            Option #Foo
-        </Button>
-        <Button {...DropdownButton.closeOnClick()}>
-            Option #Bar
-        </Button>
-        <Button>
-            Show more...
-        </Button>
-    </FancyBorder>
-</DropdownButton>
-```
+- Solved problem: selectively add dropdown closing behavior to content elements in a generic Dropdown component
+    ```jsx
+    <DropdownButton>
+        <p>
+            It was a dark and stormy night...
+        </p>
+        <FancyBorder>
+            <Button>
+                Open some flyout
+            </Button>
+            <Button {...DropdownButton.closeOnClick()}>
+                Option #Foo
+            </Button>
+            <Button {...DropdownButton.closeOnClick()}>
+                Option #Bar
+            </Button>
+            <Button>
+                Show more...
+            </Button>
+        </FancyBorder>
+    </DropdownButton>
+    ```
 
-Solved problem: earmark content elements to be placed in the header and footer areas of a Modal component, instead of in the body
-```jsx
-<Modal>
-    <h2 {...Modal.isHeader()}>
-        You have unsaved changes
-    </h2>
-    <p>
-        You are leaving the current view.
-        Please decide if you want to save your changes now, discard them,
-        or cancel the operation and stay on the current view.
-    </p>
-    <Button {...Modal.isFooter()}>
-        Save changes and leave view.
-    </Button>
-    <Button {...Modal.isFooter()}>
-        Discard changes and leave view.
-    </Button>
-    <Button {...Modal.isFooter()}>
-        Cancel and stay on view
-    </Button>
-</Modal>
-```
+- Solved problem: earmark content elements to be placed in the header and footer areas of a Modal component, instead of in the body
+    ```jsx
+    <Modal>
+        <h2 {...Modal.isHeader()}>
+            You have unsaved changes
+        </h2>
+        <p>
+            You are leaving the current view.
+            Please decide if you want to save your changes now, discard them,
+            or cancel the operation and stay on the current view.
+        </p>
+        <Button {...Modal.isFooter()}>
+            Save changes and leave view.
+        </Button>
+        <Button {...Modal.isFooter()}>
+            Discard changes and leave view.
+        </Button>
+        <Button {...Modal.isFooter()}>
+            Cancel and stay on view
+        </Button>
+    </Modal>
+    ```
 
 # implementation
 
