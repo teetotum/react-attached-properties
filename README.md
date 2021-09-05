@@ -206,6 +206,7 @@ In this example `recursiveMap` can inspect exactly four elements:
 - the nested `<Foo>`
 - the `<Bar>`
 - the nested `<span>`
+
 but it cannot inspect the `<input>` that will only be produced by the render function of `Foo`.
 
 You need to call `confinedBy` to be able to use `recursiveMap`:
@@ -236,31 +237,27 @@ import { AttachedProperty, confinedBy } from 'react-attached-properties';
 
 const attachedHighlight = new AttachedProperty('highlight');
 
-const Highlighter = ({ children }) => {
-  return (
+const Highlighter = ({ children }) => (
     <div className="highlighter">
-      {
-        confinedBy(Highlighter).recursiveMap(children,
-          (child) => {
-            const highlight = attachedHighlight.from(child);
-            const border = highlight ? `4px solid ${highlight}` : false;
-            return border ? <div style={{ border }}>{child}</div> : child;
-          }
-        )
-      }
+        {confinedBy(Highlighter).recursiveMap(children,
+            (child) => {
+                const highlight = attachedHighlight.from(child);
+                const border = highlight ? `4px solid ${highlight}` : false;
+                return border ? <div style={{ border }}>{child}</div> : child;
+            }
+        )}
     </div>
-  );
-};
+);
 
 attachedHighlight.createSetter(Highlighter);
 
 const ValidatedInput = ({errorMessage, ...inputProps}) => (
-  <Highlighter>
-    <input {...inputProps} />
-    { errorMessage && (
-      <span {...Highlighter.highlight('red')}>{errorMessage}</span>
-    )}
-  </Highlighter>
+    <Highlighter>
+        <input {...inputProps} />
+        { errorMessage && (
+            <span {...Highlighter.highlight('red')}>{errorMessage}</span>
+        )}
+    </Highlighter>
 );
 
 export { Highlighter, ValidatedInput };
