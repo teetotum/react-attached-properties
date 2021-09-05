@@ -266,8 +266,8 @@ export { Highlighter, ValidatedInput };
 In the following example this causes a subtle bug: there will be two blue borders; one around the `<ValidatedInput>` as intended; and one around the inner nested `<input>` of ValidatedInput, which is unintended.
 ```jsx
 <Highlighter>
-  <h2>Please enter all required information (marked in blue)</h2>
-  <ValidatedInput {...Highlighter.highlight('blue')} />
+    <h2>Please enter all required information (marked in blue)</h2>
+    <ValidatedInput {...Highlighter.highlight('blue')} />
 </Highlighter>
 ```
 
