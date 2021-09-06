@@ -409,7 +409,7 @@ const Grid = ({ children, rows = 2, columns = 2 }: GridProps) => {
                                     }
                                 }
                             }>
-                                {React.cloneElement(child, { ...attachedRow.clear(), ...attachedColumn.clear() })}
+                              {React.cloneElement(child, {...attachedRow.clear(), ...attachedColumn.clear()})}
                             </div>
                         );
                     else return child;
