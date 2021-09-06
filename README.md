@@ -307,9 +307,9 @@ To conditionally set a property you can use the following syntax:
 
 # usage with TypeScript
 
-You can use the AttachedProperties pattern with TypeScript; you need to declare the property setters as additional members of your container component.
+You can use the AttachedProperties pattern with TypeScript. You either need to declare the property setters as additional members of your container component, or you rely on the type inference capabilities of the TypeScript compiler. View the following two examples to see both approaches.
 
-The following example shows how the `DropdownButton` from the [examples](https://github.com/teetotum/react-attached-properties/tree/master/examples) can be enriched with type declarations:
+The following example shows how the `DropdownButton` from the [examples](https://github.com/teetotum/react-attached-properties/tree/master/examples) can be enriched with type declarations for the property setters:
 ```jsx
 import React, { useState, useRef } from 'react';
 import type { FunctionComponent, HTMLAttributes } from 'react';
@@ -342,7 +342,7 @@ const DropdownButton = (({ children, className, tabIndex }: DropdownButtonProps)
             { isOpen && (
                 <div className="dropdown">
                     {confinedBy(DropdownButton).recursiveMap(children,
-                        (child: any) => {
+                        (child) => {
                             if (hasCloseOnClick.from(child))
                                 return (
                                     <div onClick={closeDropdown} style={{display: 'contents'}}>
@@ -362,4 +362,61 @@ const DropdownButton = (({ children, className, tabIndex }: DropdownButtonProps)
 hasCloseOnClick.createSetter(DropdownButton, () => true);
 
 export { DropdownButton };
+```
+
+The following example shows how the `Grid` from the [examples](https://github.com/teetotum/react-attached-properties/tree/master/examples) must implement the property setters in order for them to be picked up by the type inference mechanism of TypeScript:
+```jsx
+import React, { useCallback } from 'react';
+import type { HTMLAttributes } from 'react';
+import { AttachedProperty } from 'react-attached-properties';
+
+interface GridProps extends HTMLAttributes<Element> {
+    rows?: number;
+    columns?: number;
+}
+
+const attachedRow = new AttachedProperty('row');
+const attachedColumn = new AttachedProperty('column');
+
+const rowDefinition = '100px ';
+const colDefinition = '100px ';
+
+const Grid = ({ children, rows = 2, columns = 2 }: GridProps) => {
+    const gridRef = useCallback(
+        (element) => {
+            if (element) {
+                element.style.setProperty('--rows', rowDefinition.repeat(rows));
+                element.style.setProperty('--columns', colDefinition.repeat(columns));
+            }
+        }, [rows, columns]
+    );
+
+    return (
+        <div className="grid" ref={gridRef}>
+            {
+                React.Children.map(children, (child) => {
+                    if (React.isValidElement(child))
+                        return (
+                            <div className="cell" ref={
+                                (element) => {
+                                    if (element) {
+                                        element.style.setProperty('--row', attachedRow.from(child) );
+                                        element.style.setProperty('--column', attachedColumn.from(child) );
+                                    }
+                                }
+                            }>
+                                {React.cloneElement(child, { ...attachedRow.clear(), ...attachedColumn.clear() })}
+                            </div>
+                        );
+                    else return child;
+                })
+            }
+        </div>
+    );
+};
+
+Grid.row = (value: number) => ({ [attachedRow.toString()]: value });
+Grid.column = (value: number) => ({ [attachedColumn.toString()]: value });
+
+export { Grid };
 ```
