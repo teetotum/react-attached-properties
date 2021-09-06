@@ -153,14 +153,14 @@ createSetter(component, createAttachedValue = _ => _)
     ```jsx
     const hasCloseOnClick = new AttachedProperty('closeOnClick');
     hasCloseOnClick.createSetter(DropdownButton, () => true);
-    <div {...DropdownButton.closeOnClick()}>
+    <div {...DropdownButton.closeOnClick()} />
     ```
 
 - Here is an example with three arguments:
     ```jsx
     const attachedCoordinates = new AttachedProperty('coordinates');
     attachedCoordinates.createSetter(React3DViewbox, (x, y, z) => ({ x, y, z }));
-    <div {...React3DViewbox.coordinates(56, 67, 78)}>
+    <div {...React3DViewbox.coordinates(56, 67, 78)} />
     ```
 
 ## shallow
@@ -307,4 +307,45 @@ To conditionally set a property you can use the following syntax:
 
 # usage with TypeScript
 
-to be done
+You can use the AttachedProperties pattern with TypeScript; you need to declare the property setters as additional members of your container component.
+
+The following example shows how the `DropdownButton` from the [examples](https://github.com/teetotum/react-attached-properties/tree/master/examples) can be enriched with type declarations:
+```jsx
+import React, { useState, useRef } from 'react';
+import type { FunctionComponent, HTMLAttributes } from 'react';
+import { AttachedProperty, confinedBy } from 'react-attached-properties';
+import { useClickOutside } from './useClickOutside';
+
+interface DropdownButtonProps extends HTMLAttributes<Element> {
+    // declare all the regular props for the component here;
+    // all intrinsic props (children, className, tabIndex, aria-* attributes, data-* attributes, etc.)
+    // are already supported by extending HTMLAttributes; so there is no need to declare them here.
+}
+
+interface IDropdownButton extends FunctionComponent<DropdownButtonProps> {
+    // declare all property setters for you attached properties here
+    closeOnClick(): object;
+}
+
+const hasCloseOnClick = new AttachedProperty('closeOnClick');
+
+const DropdownButton = (({ children, className, tabIndex }: DropdownButtonProps) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const closeDropdown = () => setIsOpen(false);
+    const toggleDropdown = () => setIsOpen(!isOpen);
+    const root = useRef<HTMLDivElement>(null);
+    useClickOutside(root, closeDropdown);
+
+    return (
+        <div className={`dropdown-button`} ref={root}>
+        {
+            // ...
+        }
+        </div>
+    );
+}) as IDropdownButton;
+
+hasCloseOnClick.createSetter(DropdownButton, () => true);
+
+export { DropdownButton };
+```
