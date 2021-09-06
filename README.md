@@ -309,6 +309,8 @@ To conditionally set a property you can use the following syntax:
 
 You can use the AttachedProperties pattern with TypeScript. You either need to declare the property setters as additional members of your container component, or you rely on the type inference capabilities of the TypeScript compiler. View the following two examples to see both approaches.
 
+## declaring property setters
+
 The following example shows how the `DropdownButton` from the [examples](https://github.com/teetotum/react-attached-properties/tree/master/examples) can be enriched with type declarations for the property setters:
 ```jsx
 import React, { useState, useRef } from 'react';
@@ -363,6 +365,8 @@ hasCloseOnClick.createSetter(DropdownButton, () => true);
 
 export { DropdownButton };
 ```
+
+## relying on type inference
 
 The following example shows how the `Grid` from the [examples](https://github.com/teetotum/react-attached-properties/tree/master/examples) must implement the property setters in order for them to be picked up by the type inference mechanism of TypeScript:
 ```jsx
