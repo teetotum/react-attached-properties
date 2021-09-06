@@ -337,10 +337,24 @@ const DropdownButton = (({ children, className, tabIndex }: DropdownButtonProps)
     useClickOutside(root, closeDropdown);
 
     return (
-        <div className={`dropdown-button`} ref={root}>
-        {
-            // ...
-        }
+        <div className={`dropdown-button ${className}`} ref={root} tabIndex={tabIndex}>
+            <div className="toggle-button" onClick={toggleDropdown} />
+            { isOpen && (
+                <div className="dropdown">
+                    {confinedBy(DropdownButton).recursiveMap(children,
+                        (child: any) => {
+                            if (hasCloseOnClick.from(child))
+                                return (
+                                    <div onClick={closeDropdown} style={{display: 'contents'}}>
+                                        {React.cloneElement(child, hasCloseOnClick.clear())}
+                                    </div>
+                                );
+                            else
+                                return child;
+                        }
+                    )}
+                </div>
+            )}
         </div>
     );
 }) as IDropdownButton;
