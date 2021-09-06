@@ -401,16 +401,16 @@ const Grid = ({ children, rows = 2, columns = 2 }: GridProps) => {
                 React.Children.map(children, (child) => {
                     if (React.isValidElement(child))
                         return (
-                            <div className="cell" ref={
-                                (element) => {
-                                    if (element) {
-                                        element.style.setProperty('--row', attachedRow.from(child) );
-                                        element.style.setProperty('--column', attachedColumn.from(child) );
-                                    }
+                          <div className="cell" ref={
+                            (element) => {
+                                if (element) {
+                                    element.style.setProperty('--row', attachedRow.from(child) );
+                                    element.style.setProperty('--column', attachedColumn.from(child) );
                                 }
-                            }>
-                              {React.cloneElement(child, {...attachedRow.clear(), ...attachedColumn.clear()})}
-                            </div>
+                            }
+                          }>
+                            {React.cloneElement(child, {...attachedRow.clear(), ...attachedColumn.clear()})}
+                          </div>
                         );
                     else return child;
                 })
