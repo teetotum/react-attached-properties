@@ -284,7 +284,7 @@ Calling `attachedProp.clear()` returns an object with the unique attached proper
 
 # a word about rest properties
 
-The example that shows why [clearing](#clear) attached values is recommended uses a [rest property](https://github.com/tc39/proposal-object-rest-spread/blob/master/Rest.md). Be aware that any attached property value that was attached to your component will end up in a rest property. This can cause two different potential problems:
+The example that shows why [clearing](#clear) attached values is recommended uses a [rest property](https://github.com/tc39/proposal-object-rest-spread/blob/master/Rest.md). Be aware that any attached property that was attached to your component will end up in a rest property. This can cause two different potential problems:
 
 - As shown in the aforementioned example, if an uncleared attached value is spread onto an element that is placed within a container that recognizes the attached property it will unintentionally trigger the container's behavior. The solution to this is to always clear attached values in the container. If you should find yourself in the situation that you need to use a container that neglects to clear its properties yet you have no way to fix this bug in the container code, you can remove the attached property from the rest prop:
     ```jsx
