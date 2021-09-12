@@ -192,22 +192,22 @@ The pattern can be implemented in any vanilla React project. A simple implementa
 import React from 'react';
 
 const guid = 'bf1b5a20-ec50-4530-8a10-ae78bdc62e74';
-const attachedRowID = `${guid}_row`;
-const attachedColumnID = `${guid}_column`;
+const rowProp = `${guid}_row`;
+const columnProp = `${guid}_column`;
 
 const Grid = ({ children, rows = 2, columns = 2 }) => (
     <div className={`grid-${columns}-${rows}`}>
         {React.Children.map(children, (child) => {
-            const row = (child.props && child.props[attachedRowID]) || 0;
-            const column = (child.props && child.props[attachedColumnID]) || 0;
+            const row = (child.props && child.props[rowProp]) || 0;
+            const column = (child.props && child.props[columnProp]) || 0;
             const placement = `cell-${column}-${row}`;
             return (<div className={placement}>{child}</div>);
         })}
     </div>
 );
 
-Grid.row = (x) => ({ [attachedRowID]: x });
-Grid.column = (x) => ({ [attachedColumnID]: x });
+Grid.row = (x) => ({ [rowProp]: x });
+Grid.column = (x) => ({ [columnProp]: x });
 
 export { Grid };
 ```
