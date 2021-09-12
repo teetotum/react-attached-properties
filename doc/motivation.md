@@ -87,13 +87,14 @@ With this idea in mind we can formulate a general *Attached Properties* pattern:
 > 1. has the role of a container
 > 2. that accepts any arbitrary React elements as content
 > 3. and needs additional information associated with content elements
+> 
 > ...the additional information can be implemented as Attached Properties (as an alternative to the introduction of dedicated wrapper components).
 
 The pattern therefore has a clearly defined field where it is applicable. It is a useful alternative to wrapper components. It can greatly help in reducing cluttered markup, and help in producing readable code.
 
 ## Behold the Possibilities!
 
-Obvious applications for the pattern are *dedicated layout components* - as is the grid we have seen in the first paragraph.
+Obvious applications for the pattern are *dedicated layout components* - as is the `<Grid>` we have seen in the first paragraph.
 We can picture more specialized layout components like a `<DockPanel>` or a `<React3DViewbox>` that would also benefit from the pattern. Or even a genric `<Modal>` component with *header*, *body*, and *footer* sections. How would they look?
 
 ```jsx
