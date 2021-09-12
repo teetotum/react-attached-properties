@@ -189,6 +189,7 @@ With `confinedBy` the recursion will not descend into the children of a nested c
 </DropdownButton>
 ```
 In this example the inner nested `<Button>` shall only close the nested dropdown, it is therefore necessairy that the outer DropdownButton does not descend into the nested DropdownButton, to support this container-in-container scenario.
+
 `recursiveMap` visits recursively children of children. It can inspect all the jsx elements that are provided to the container component via the children prop, i.e. all the nested elements that are placed between the opening tag and the closing tag when the container is used in a render function. To further illustrate this point, view the following example:
 ```jsx
 const Foo = () => (<input />);
@@ -281,6 +282,44 @@ Calling `attachedProp.clear()` returns an object with the unique attached proper
     React.cloneElement(child, { ...attachedRow.clear(), ...attachedColumn.clear() })
     ```
 
+# a word about rest properties
+
+The example that shows why [clearing](#clear) attached values is recommended uses a [rest property](https://github.com/tc39/proposal-object-rest-spread/blob/master/Rest.md). Be aware that any attached property value that was attached to your component will end up in a rest property. This can cause two different potential problems:
+
+- As shown in the aforementioned example, if an uncleared attached value is spread onto an element that is placed within a container that recognizes the attached property it will unintentionally trigger the container's behavior. The solution to this is to always clear attached values in the container. If you should find yourself in the situation that you need to use a container that neglects to clear its properties yet you have no way to fix this bug in the container code, you can remove the attached property from the rest prop:
+    ```jsx
+    const ValidatedInput = ({errorMessage, ...inputProps}) => {
+        delete inputProps[Object.keys(Highlighter.highlight())[0]];
+        return (
+            <Highlighter>
+                <input {...inputProps} />
+                { errorMessage && (
+                    <span {...Highlighter.highlight('red')}>{errorMessage}</span>
+                )}
+            </Highlighter>
+        );
+    };
+    ```
+    Do not add this preemptively. This should only be used as a last resort and a bug ticket should be raised to inform the container's author.
+
+- Even if the attached value was cleared, it is still present in the rest property object, with the value `UNSET_VALUE`. Since the order in which properties are applied to an element is important, with later properties overriding earlier properties with the same key, you should apply attached properties always after spread rest properties.
+    <figcaption>The right order to apply rest properties and attached properties to the same element</figcaption>
+    ```jsx
+    const Something = ({foo, bar, ...rest}) => (
+        <Highlighter>
+            <div {...rest} {...Highlighter.highlight('green')} />
+        </Highlighter>
+    );
+    ```
+    <figcaption>The wrong order to apply rest properties and attached properties to the same element</figcaption>
+    ```jsx
+    const Something = ({foo, bar, ...rest}) => (
+        <Highlighter>
+            <div {...Highlighter.highlight('green')} {...rest} />
+        </Highlighter>
+    );
+    ```
+
 # notes on syntax
 
 The spread operator syntax is well supported by jsx although it might be unfamiliar if you haven't seen it used before.
@@ -325,7 +364,7 @@ interface DropdownButtonProps extends HTMLAttributes<Element> {
 }
 
 interface IDropdownButton extends FunctionComponent<DropdownButtonProps> {
-    // declare all property setters for you attached properties here
+    // declare all property setters for your attached properties here
     closeOnClick(): object;
 }
 
