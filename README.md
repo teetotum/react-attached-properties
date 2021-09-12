@@ -304,6 +304,7 @@ The example that shows *why [clearing](#clear) attached values is recommended* u
 
 - Even if the attached property was cleared, it is still present in the rest property object, with the value `UNSET_VALUE`. Since the order in which properties are applied to an element is important, with later properties overriding earlier properties with the same key, you should apply attached properties always after spread rest properties.
     <figcaption>The right order to apply rest properties and attached properties to the same element</figcaption>
+
     ```jsx
     const Something = ({foo, bar, ...rest}) => (
         <Highlighter>
@@ -312,6 +313,7 @@ The example that shows *why [clearing](#clear) attached values is recommended* u
     );
     ```
     <figcaption>The wrong order to apply rest properties and attached properties to the same element</figcaption>
+    
     ```jsx
     const Something = ({foo, bar, ...rest}) => (
         <Highlighter>
