@@ -182,7 +182,7 @@ But its applicability is not confined to layout components; it can be used to se
 </DropdownButton>
 ```
 
-A working implementation of this [DropdownButton component is available on GitHub](https://github.com/teetotum/react-attached-properties/blob/master/examples/DropdownButton.js). (To be totally honest: the same `display: contents` [mechanism](https://developer.mozilla.org/en-US/docs/Web/CSS/display#box) that is used by the DropdownButton implementation applying the *Attached Property* pattern to preserve css layout integrity could also be used in an alternative implementation applying the *Wrapper* pattern that would also preserve css layout integrity. But it would still raise concerns with attentive developers wherever it would be used.)
+A working implementation of this [DropdownButton component is available on GitHub](https://github.com/teetotum/react-attached-properties/blob/master/examples/DropdownButton.js). (To be totally honest: the same `display: contents` [mechanism](https://developer.mozilla.org/en-US/docs/Web/CSS/display#box) that is used by the DropdownButton implementation applying the *Attached Properties* pattern to preserve css layout integrity could also be used in an alternative implementation applying the *Wrapper* pattern that would also preserve css layout integrity. But it would still raise concerns with attentive developers wherever it would be used.)
 
 ## Implementation
 
@@ -214,7 +214,7 @@ export { Grid };
 
 There are however some pitfalls and ramifications: How can children be mapped recursively? How deep should the recursion go? What happens with attached properties that are propagated to the children of content elements?
 
-Those questions are addressed in detail in the documentation of [react-attached-properties](https://github.com/teetotum/react-attached-properties), a tiny library that is intended to make using the *Attached Property* pattern even easier and to provide ready-made solutions to circumnavigate potential pitfalls.
+Those questions are addressed in detail in the documentation of [react-attached-properties](https://github.com/teetotum/react-attached-properties), a tiny library that is intended to make using the *Attached Properties* pattern even easier and to provide ready-made solutions to circumnavigate potential pitfalls.
 
 ## Does it Work with TypeScript?
 
