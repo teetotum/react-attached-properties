@@ -1,6 +1,6 @@
 # A Concise Pattern for Container-and-Content Elements in React
 
-Imagine you have to develop a Grid component with React. And any arbitrary React component can be used as content for your Grid.
+Imagine you have to develop a Grid component with React. And any arbitrary JSX element can be used as content for your Grid.
 How do you specify which element goes into which grid cell?
 
 A common approach is to provide wrapper elements for rows and columns; which often produces lamentably verbose and cluttered markup; and soon clarity goes out the window.
@@ -85,7 +85,7 @@ A working implementation of this [Grid component is available on GitHub](https:/
 With this idea in mind we can formulate a general *Attached Properties* pattern:
 > Whenever a component...
 > 1. has the role of a container
-> 2. that accepts any arbitrary React elements as content
+> 2. that accepts any arbitrary JSX elements as content
 > 3. and needs additional information associated with content elements
 > 
 > ...the additional information can be implemented as Attached Properties (as an alternative to the introduction of dedicated wrapper components).
@@ -95,7 +95,7 @@ The pattern therefore has a clearly defined field where it is applicable. It is 
 ## Behold the Possibilities!
 
 Obvious applications for the pattern are *dedicated layout components* - as is the `<Grid>` we have seen in the first paragraph.
-We can picture more specialized layout components like a `<DockPanel>` or a `<React3DViewbox>` that would also benefit from the pattern. Or even a genric `<Modal>` component with *header*, *body*, and *footer* sections. How would they look?
+We can picture more specialized layout components like a `<DockPanel>` or a `<React3DViewbox>` that would also benefit from the pattern. Or even a generic `<Modal>` component with *header*, *body*, and *footer* sections. How would they look?
 
 ```jsx
 <DockPanel>
@@ -218,5 +218,5 @@ Those questions are addressed in detail in the documentation of [react-attached-
 
 ## Does it Work with TypeScript?
 
-Yes. You can either rely on the TypeScript type inference mechanism to pick up the property setters like `Grid.row = (x: number) => ({ [attachedRowID]: x });` so it won't protest at `<div {...Grid.row(3)} />` or you can declare the property setters for the container `interface IGrid { row(x: number): object; }`.
+Yes. You can either rely on the TypeScript type inference mechanism to pick up the property setters like `Grid.row = (x: number) => ({ [attachedRowID]: x });` so it won't protest at `<div {...Grid.row(3)} />` or you can declare the property setters for the container `interface IGrid {row(x: number): object;}`.
 There are examples in the [TypeScript section of the documentation](https://github.com/teetotum/react-attached-properties#usage-with-typescript).
